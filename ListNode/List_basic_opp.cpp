@@ -49,6 +49,18 @@ ListNode* createList(){
     return head;
 }
 
+ListNode* createEndList(){
+    vector<int> input = createVector();
+    ListNode* head = new ListNode(input[input.size()-1]);
+    ListNode* end = head;
+    for (int i = input.size() - 2; i >= 0; i--){
+        ListNode* temp = new ListNode(input[i]);
+        end -> next = temp;
+        end = temp;
+    }
+    return head;
+}
+
 void showList(ListNode* head){
     cout << "ListNode Value" << endl;
     while(head){
@@ -132,12 +144,15 @@ ListNode* deleteFromEndNode(ListNode* head){
     return head;
 }
 int main(){
-    ListNode* head = createList();
-    showList(head);
-    head = addNode(head);
-    showList(head);
-    head = deleteNode(head);
-    showList(head);
-    head = deleteFromEndNode(head);
-    showList(head);
+    // ListNode* head = createList();
+    // showList(head);
+    // head = addNode(head);
+    // showList(head);
+    // head = deleteNode(head);
+    // showList(head);
+    // head = deleteFromEndNode(head);
+    // showList(head);
+
+    ListNode* Endhead = createEndList();
+    showList(Endhead);
 }
