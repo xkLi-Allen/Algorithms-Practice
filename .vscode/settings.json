@@ -5,6 +5,8 @@
         "queue": "cpp",
         "initializer_list": "cpp",
         "xutility": "cpp",
-        "xhash": "cpp"
+        "xhash": "cpp",
+        "algorithm": "cpp",
+        "utility": "cpp"
     }
 }

@@ -45,30 +45,40 @@ TreeNode* creatBTree(vector<int> data){
     }
     return root;
 }
-void creatOrderBTree(int data, TreeNode* root){
-    TreeNode* newNode = new TreeNode(data);
-    if (root == nullptr){
-        root = newNode;
-    } 
-    else{
-        TreeNode* currentTree = root;
-        TreeNode* backTree = nullptr;
-        while(currentTree != nullptr){
-            backTree = currentTree;
-            if (currentTree -> val > data){
-                currentTree = currentTree -> left;
-            }
-            else{
-                currentTree = currentTree -> right;
-            }
-        }
-        if (backTree -> val > data){
-            backTree -> left = newNode;
-        }
-        else{
-            backTree -> right = newNode;
-        }
-    }
+TreeNode* creatOrderBTree(){
+	TreeNode* root = new TreeNode();
+	vector<int> input = creatVector();
+	queue<TreeNode*> tempQueue;
+	int n = 0;
+	int val = input[n++];
+	if (val == -1) {
+		return nullptr;
+	}
+	else {
+		root->val = val;
+		tempQueue.push(root);
+	}
+	while (!tempQueue.empty()) {
+		TreeNode* temp = tempQueue.front();
+		tempQueue.pop();
+		val = input[n++];
+		if (val == -1) {
+			temp->left == nullptr;
+		}
+		else {
+			temp->left = new TreeNode(val);
+			tempQueue.push(temp->left);
+		}
+		val = input[n++];
+		if (val == -1) {
+			temp->right == nullptr;
+		}
+		else {
+			temp->right = new TreeNode(val);
+			tempQueue.push(temp->right);
+		}
+	}
+	return root;
 }
 
 vector<int> creatVector(){
@@ -149,10 +159,7 @@ int maxDepth(TreeNode* root){
 }
 int main(){
     vector<int> input1 = creatVector();
-    TreeNode* root1 = new TreeNode(input1[0]);
-    for (int i = 1; i < input1.size(); i++){
-        creatOrderBTree(input1[i], root1);
-    }
+    TreeNode* root1 = creatOrderBTree();
     cout << "Tree1 maxDepth: " << maxDepth(root1) << endl;
     showBTree(root1);
     vector<int> input2 = creatVector();
