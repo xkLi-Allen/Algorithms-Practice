@@ -10,37 +10,41 @@ struct TreeNode{
     TreeNode(int x) : val(x), left(nullptr), right(nullptr){}
     TreeNode(int x, TreeNode* left, TreeNode* right) : val(x), left(left), right(right){}
 };
-TreeNode* creatBTree(vector<int> data){
-    int val;
+vector<int> creatVector(){
+    cout << "input Vector elements" << endl;
+    vector<int> input;
+    char c;
+    int temp;
+    cin >> temp;
+    input.push_back(temp);
+    while((c = getchar()) != '\n'){
+        cin >> temp;
+        input.push_back(temp);
+    }
+    return input;
+}
+TreeNode* creatBTree(){
+    vector<int> data = creatVector();
     int n = 0;
-    val = data[n++];
-    queue<TreeNode*> Q;
-    TreeNode* root = new TreeNode();
-    if (val == -1){
-        return nullptr;
-    }
-    else{
-        root -> val = val;
-        Q.push(root);
-    }
-    while(!Q.empty()){
-        TreeNode* temp = Q.front();
-        Q.pop();
-        val = data[n++];
-        if (val == -1){
-            temp -> left = nullptr;
+    TreeNode* root = new TreeNode(data[n++]);
+    while(n != data.size()){
+        TreeNode* currentTree = root;
+        TreeNode* backTree = currentTree;
+        int tempValue = data[n++];
+        while(currentTree){
+            backTree = currentTree;
+            if(currentTree -> val > tempValue){
+                currentTree = currentTree -> left;
+            }
+            else{
+                currentTree = currentTree -> right;
+            }
+        }
+        if(backTree -> val > tempValue){
+            backTree -> left = new TreeNode(tempValue);
         }
         else{
-            temp -> left = new TreeNode(val);
-            Q.push(temp -> left);
-        }
-        val = data[n++];
-        if (val == -1){
-            temp -> right = nullptr;
-        }
-        else{
-            temp -> right = new TreeNode(val);
-            Q.push(temp -> right);
+            backTree -> right = new TreeNode(tempValue);
         }
     }
     return root;
@@ -79,20 +83,6 @@ TreeNode* creatOrderBTree(){
 		}
 	}
 	return root;
-}
-
-vector<int> creatVector(){
-    cout << "input Vector elements" << endl;
-    vector<int> input;
-    char c;
-    int temp;
-    cin >> temp;
-    input.push_back(temp);
-    while((c = getchar()) != '\n'){
-        cin >> temp;
-        input.push_back(temp);
-    }
-    return input;
 }
 void preOrder(TreeNode* root){
     if (root == nullptr){
@@ -158,12 +148,10 @@ int maxDepth(TreeNode* root){
     return max(maxDepth(root -> left), maxDepth(root -> right)) + 1;
 }
 int main(){
-    vector<int> input1 = creatVector();
     TreeNode* root1 = creatOrderBTree();
     cout << "Tree1 maxDepth: " << maxDepth(root1) << endl;
     showBTree(root1);
-    vector<int> input2 = creatVector();
-    TreeNode* root2 = creatBTree(input2);
+    TreeNode* root2 = creatBTree();
     cout << "Tree2 maxDepth: " << maxDepth(root2) << endl;
     showBTree(root2);
 }
