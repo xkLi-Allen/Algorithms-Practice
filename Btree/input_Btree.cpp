@@ -148,9 +148,9 @@ int maxDepth(TreeNode* root){
     return max(maxDepth(root -> left), maxDepth(root -> right)) + 1;
 }
 int main(){
-    TreeNode* root1 = creatOrderBTree();
-    cout << "Tree1 maxDepth: " << maxDepth(root1) << endl;
-    showBTree(root1);
+    // TreeNode* root1 = creatOrderBTree();
+    // cout << "Tree1 maxDepth: " << maxDepth(root1) << endl;
+    // showBTree(root1);
     TreeNode* root2 = creatBTree();
     cout << "Tree2 maxDepth: " << maxDepth(root2) << endl;
     showBTree(root2);
